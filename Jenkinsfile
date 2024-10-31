@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'Hello World'
+                script {
+                def ipa = steps.findFiles(glob: "**/**/*.groovy").collect { it.path }
+                echo "ipa: ${ipa}"
+                }
             }
         }
     }
