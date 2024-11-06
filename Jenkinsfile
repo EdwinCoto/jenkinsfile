@@ -23,13 +23,8 @@ pipeline {
 
         stages["CA"] = {
             input "Deploy to 'CA Production'?"
-            stage("init"){
-                firstStage("ca")
-            }
-            stage("deploy"){
-                secondStage("ca")
-            }
-            
+            firstStage("ca")
+            secondStage("ca")
 
         }
 
