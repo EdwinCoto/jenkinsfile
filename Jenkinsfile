@@ -19,6 +19,7 @@ pipeline {
 
 
     void multiDeployToProd(Map opts = [:]){
+
         def stages = [:]
 
         stages["CA"] = {
@@ -30,13 +31,13 @@ pipeline {
 
         stages["CO"] = {
             input "Deploy to 'CO Production'?"
+            firstStage("co")
+            secondStage("co")
 
         }
 
         stage("Production Deployment"){
             parallel stages
-            firstStage("co")
-            secondStage("co")
         }
     }
 
