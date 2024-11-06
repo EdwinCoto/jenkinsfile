@@ -19,17 +19,17 @@ pipeline {
 
 
     void multiDeployToProd(Map opts = [:]){
-
-
-
-
-
         def stages = [:]
 
         stages["CA"] = {
             input "Deploy to 'CA Production'?"
-            firstStage("ca")
-            secondStage("ca")
+            stage("init"){
+                firstStage("ca")
+            }
+            stage("deploy"){
+                secondStage("ca")
+            }
+            
 
         }
 
