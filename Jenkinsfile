@@ -10,7 +10,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    multiDeployToProd()
+                    multiDeployToProd([:])
                 }
             }
         }
