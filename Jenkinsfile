@@ -4,11 +4,50 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
+                echo ( "hello world")
+            }
+        }
+        stage('Deploy') {
+            steps {
                 script {
-                def files = steps.findFiles(glob: "**/**/*.groovy")
-echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
+                    multiDeployToProd()
                 }
             }
         }
     }
+}
+
+
+    void multiDeployToProd(Map opts = [:]){
+
+
+
+
+
+        def stages = [:]
+
+        stages["CA"] = {
+            input "Deploy to 'CA Production'?"
+            firstStage("ca")
+            secondStage("ca")
+
+        }
+
+        stages["CO"] = {
+            input "Deploy to 'CO Production'?"
+
+        }
+
+        stage("Production Deployment"){
+            parallel stages
+            firstStage("co")
+            secondStage("co")
+        }
+    }
+
+void firstStage (String center){
+    echo "First Stage : ${center}"
+}
+void secondStage (String center){
+    echo "Second Stage : ${center}"
 }
