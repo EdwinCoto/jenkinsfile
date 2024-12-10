@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo ( "hello world 2")
+                echo ( "hello world !!!!")
             }
         }
         stage('Deploy') {
@@ -16,6 +16,7 @@ pipeline {
         }
     }
 }
+
 
 
     void multiDeployToProd(Map opts = [:]){
