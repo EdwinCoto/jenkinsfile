@@ -14,32 +14,36 @@ pipeline {
                 }
             }
         }
+        stage('Edwin') {
+            steps {
+                echo ("edwin ")
+            }
+        }
     }
 }
 
+void multiDeployToProd(Map opts = [:]){
 
-    void multiDeployToProd(Map opts = [:]){
+    def stages = [:]
 
-        def stages = [:]
+    stages["CA"] = {
+        input "Deploy to 'CA Production'?"
+        firstStage("ca")
+        secondStage("ca")
 
-        stages["CA"] = {
-            input "Deploy to 'CA Production'?"
-            firstStage("ca")
-            secondStage("ca")
-
-        }
-
-        stages["CO"] = {
-            input "Deploy to 'CO Production'?"
-            firstStage("co")
-            secondStage("co")
-
-        }
-
-        stage("Production Deployment"){
-            parallel stages
-        }
     }
+
+    stages["CO"] = {
+        input "Deploy to 'CO Production'?"
+        firstStage("co")
+        secondStage("co")
+
+    }
+
+    stage("Production Deployment"){
+        parallel stages
+    }
+}
 
 void firstStage (String center){
     echo "First Stage : ${center}"
