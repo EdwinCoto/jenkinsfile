@@ -37,7 +37,7 @@ pipeline {
                             def buildInfo = build job  : "${JOB_NAME}", wait: false, propagate: false
 
                             echo ("${buildInfo}")
-                            echo ("${buildInfo.number}")
+                            echo ("${buildInfo.id}")
                         }
                     }
                 }
