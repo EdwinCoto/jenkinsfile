@@ -1,25 +1,27 @@
 pipeline {
     // Top-level Agent (Default for Stage 1):
     // Dynamically launches an Ubuntu Docker container on an available host.
-    agent {
-        docker {
-            image 'ubuntu:latest'
-            // This 'mp' label is used internally by the Kubernetes/Docker plugins
-            // to manage the lifecycle of this specific *container*.
-            label 'mp'
-            args ' --network host '
-            
-        }
-    }
-
+    agent none
     stages {
         stage('Stage 1: Run in Ubuntu Docker Container') {
+            agent {
+                docker {
+                    image 'ubuntu:latest'
+                    // This 'mp' label is used internally by the Kubernetes/Docker plugins
+                    // to manage the lifecycle of this specific *container*.
+                    label 'mp'
+                    args ' --network host '
+                    reuseNode true
+                    
+                }
+            }
             steps {
                 sh 'echo "--- STAGE 1 ---"'
                 sh 'echo "Running inside the dynamic ubuntu:latest Docker container."'
                 sh 'uname -a' // Checks the OS kernel info inside the container
                 sh "whoami"
                 sh "hostname"
+                sh "echo 'stage1' > demo.txt"
             }
         }
 
@@ -29,12 +31,21 @@ pipeline {
             // on a completely *different*, persistent Jenkins agent that has
             // been manually configured with the label "mp".
             agent {
-                label 'master'
+                docker {
+                    image 'ubuntu:latest'
+                    // This 'mp' label is used internally by the Kubernetes/Docker plugins
+                    // to manage the lifecycle of this specific *container*.
+                    label 'mp'
+                    args ' --network host '
+                    reuseNode true
+                }
             }
+
             steps {
                 sh 'echo "--- STAGE 2 ---"'
                 sh 'echo "Now running on a static Jenkins agent with label mp (a different machine/environment)." '
                 sh "hostname"
+                sh "pwd ; ls -lrta"
                 // You might expect a different environment/OS here depending on your static agent setup
                 // bat 'echo "If this is a Windows agent"'
             }
