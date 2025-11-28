@@ -1,3 +1,5 @@
+buildInfo
+
 pipeline {
     agent none
 
@@ -32,7 +34,7 @@ pipeline {
                     steps{
                         script{
                             def JOB_NAME = "downstream-job"
-                            def buildInfo = build job  : "${JOB_NAME}",
+                            buildInfo = build job  : "${JOB_NAME}",
                                                 wait: false,
                                                 propagate: false
                         }
