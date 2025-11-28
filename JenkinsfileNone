@@ -38,7 +38,7 @@ pipeline {
                             def JOB_NAME = "downstream-job"
                             buildInfo = build job  : "${JOB_NAME}", wait: false, propagate: false , waitForStart: true
 
-                            echo ("${buildInfo}")
+                            echo ("${buildInfo.getAbsoluteUrl()}")
                             echo ("${buildInfo.number}")
                         }
                     }
