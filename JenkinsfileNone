@@ -1,6 +1,6 @@
 
 // global variables
-buildInfo
+buildInfo = ""
 
 pipeline {
     agent none
