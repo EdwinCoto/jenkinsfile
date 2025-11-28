@@ -52,18 +52,21 @@ pipeline {
                 script {
                     timeout(time: 6, unit: 'MINUTES') {
                         waitUntil {
+                            def result = buildInfo.result
+                            
+                            /*
                             def result = Jenkins.instance
                                 .getItem("downstream-job")
                                 .getBuildByNumber(buildInfo.number)
                                 ?.getResult()
+                            */
 
                             if (result == null) {
                                 echo "Still running..."
-                                echo "${buildInfo.result}"
+                                echo "${result}"
                                 sleep 30
                                 return false
                             } else {
-                                echo "${buildInfo.result}"
                                 echo "External job finished with: ${result}"
                                 return true
                             }
