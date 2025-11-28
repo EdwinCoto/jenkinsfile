@@ -32,7 +32,7 @@ pipeline {
                     steps{
                         script{
                             def JOB_NAME = "downstream-job"
-                             buildInfo = build job  : "${JOB_NAME}",
+                            def buildInfo = build job  : "${JOB_NAME}",
                                                 wait: false,
                                                 propagate: false
                         }
