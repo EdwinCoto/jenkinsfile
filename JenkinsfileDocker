@@ -28,7 +28,9 @@ pipeline {
             // This stops using the Docker container and schedules this stage
             // on a completely *different*, persistent Jenkins agent that has
             // been manually configured with the label "mp".
-            agent any
+            agent {
+                label 'master'
+            }
             steps {
                 sh 'echo "--- STAGE 2 ---"'
                 sh 'echo "Now running on a static Jenkins agent with label mp (a different machine/environment)." '
