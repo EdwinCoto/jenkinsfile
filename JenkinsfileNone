@@ -59,9 +59,11 @@ pipeline {
 
                             if (result == null) {
                                 echo "Still running..."
+                                echo "${buildInfo.result}"
                                 sleep 30
                                 return false
                             } else {
+                                echo "${buildInfo.result}"
                                 echo "External job finished with: ${result}"
                                 return true
                             }
