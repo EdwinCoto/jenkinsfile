@@ -52,6 +52,7 @@ pipeline {
                 script {
                     timeout(time: 6, unit: 'MINUTES') {
                         waitUntil {
+                            echo("Checking buildInfo.result .........")
                             def result = buildInfo.result
                             
                             /*
