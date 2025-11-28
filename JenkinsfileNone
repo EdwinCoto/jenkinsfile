@@ -1,0 +1,41 @@
+pipeline {
+    agent none
+
+    stages {
+
+        stage('Builder Block') {
+            agent { label 'mp' }    // 1 executor allocated here
+            stages {
+
+                stage('Build') {
+                    steps {
+                        echo "--- BUILD ---"
+                        sh "ls -lrta ; pwd"
+                    }
+                }
+
+                stage('Test') {
+                    steps {
+                        echo "--- TEST ---"
+                        sh "echo 'demo' > demo.txt"
+                    }
+                }
+
+                stage('Package') {
+                    steps {
+                        echo "--- PACKAGE ---"
+                        sh "ls -lrta ; cat demo.txt"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy External') {
+            agent { label 'master' }
+            steps {
+                echo "--- DEPLOY ---"
+                sh "ls -la ; pwd"
+            }
+        }
+    }
+}
