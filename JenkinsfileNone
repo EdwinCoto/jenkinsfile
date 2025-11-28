@@ -27,14 +27,42 @@ pipeline {
                         sh "ls -lrta ; cat demo.txt"
                     }
                 }
+                
+                stage('downstream'){
+                    steps{
+                        script{
+                            def JOB_NAME = "downstream-job"
+                             buildInfo = build job  : "${JOB_NAME}",
+                                                wait: false,
+                                                propagate: false
+                        }
+                    }
+                }
             }
         }
 
-        stage('Deploy External') {
-            agent { label 'master' }
+        stage('Wait for External Completion') {
+            agent none   // IMPORTANT: does NOT use any agent executor
             steps {
-                echo "--- DEPLOY ---"
-                sh "ls -la ; pwd"
+                script {
+                    timeout(time: 6, unit: 'MINUTES') {
+                        waitUntil {
+                            def result = Jenkins.instance
+                                .getItem("downstream-job")
+                                .getBuildByNumber(buildInfo.number)
+                                ?.getResult()
+
+                            if (result == null) {
+                                echo "Still running..."
+                                sleep 30
+                                return false
+                            } else {
+                                echo "External job finished with: ${result}"
+                                return true
+                            }
+                        }
+                    }
+                }
             }
         }
     }
