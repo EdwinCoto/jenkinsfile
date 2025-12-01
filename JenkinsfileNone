@@ -103,6 +103,9 @@ pipeline {
 
         stage("Analize Test Results from Downstream Job") {
             agent { label 'mp' };
+                options {
+                    skipDefaultCheckout()
+                 }
             steps {
                 script {
 
