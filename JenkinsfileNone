@@ -97,6 +97,14 @@ pipeline {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        stage("Analize Test Results from Downstream Job") {
+            agent { label 'mp' };
+            steps {
+                script {
 
                     def result = buildInfo.result.toString()
 
