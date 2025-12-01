@@ -115,7 +115,7 @@ pipeline {
                         copyArtifacts(
                             projectName: "downstream-job",
                             selector: specific("${buildInfo.number}"),
-                            filter: '*',
+                            filter: 'demo.txt',
                             target: 'downstream-artifacts/',
                         )
 
