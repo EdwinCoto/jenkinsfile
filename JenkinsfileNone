@@ -25,6 +25,30 @@ pipeline {
                     }
                 }
 
+                stage('Code Analysis'){
+                    parallel{
+
+                        stage('Sonar Analysis') {
+                            steps {
+                                script {
+                                    echo "Sonar Scan Started"
+                                }
+                            }
+                        }
+
+                        stage('Vulnerability Scan - Checkmarx') {
+                            agent {
+                                label 'remote'
+                            }
+                            steps {
+                                script {
+                                    echo "Checkmarx Scan Started"
+                                }
+                            }
+                        }
+                    }
+                }
+
                 stage('Package') {
                     steps {
                         echo "--- PACKAGE ---"
@@ -69,46 +93,7 @@ pipeline {
                                 return false
                             } else {
                                 echo "External job finished with: ${result}"
-                                
-                                // Handle different build results
-                                switch(result.toString()) {
-                                    case 'SUCCESS':
-                                        echo "✓ Build completed successfully!"
-                                        currentBuild.result = 'SUCCESS'
-                                        break
-                                    
-                                    case 'FAILURE':
-                                        echo "✗ Build failed!"
-                                        currentBuild.result = 'FAILURE'
-                                        error("Downstream job failed. Stopping pipeline.")
-                                        break
-                                    
-                                    case 'ABORTED':
-                                        echo "⊗ Build was aborted by user or timeout"
-                                        currentBuild.result = 'ABORTED'
-                                        error("Downstream job was aborted. Stopping pipeline.")
-                                        break
-                                    
-                                    case 'UNSTABLE':
-                                        echo "⚠ Build is unstable (tests failed but build succeeded)"
-                                        currentBuild.result = 'UNSTABLE'
-                                        // Continue or fail based on your requirements
-                                        // error("Downstream job is unstable. Stopping pipeline.")
-                                        break
-                                    
-                                    case 'NOT_BUILT':
-                                        echo "○ Build was not executed"
-                                        currentBuild.result = 'NOT_BUILT'
-                                        error("Downstream job was not built. Stopping pipeline.")
-                                        break
-                                    
-                                    default:
-                                        echo "? Unknown build result: ${result}"
-                                        currentBuild.result = 'FAILURE'
-                                        error("Unknown build result from downstream job: ${result}")
-                                        break
-                                }
-
+                                sh("ls -lrta ; pwd")
                                 return true
                             }
                         }
