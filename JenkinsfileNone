@@ -89,11 +89,10 @@ pipeline {
                             if (result == null) {
                                 echo "Still running..."
                                 echo "${result}"
-                                sleep 30
+                                sleep 10
                                 return false
                             } else {
                                 echo "External job finished with: ${result}"
-                                error("TODO OK")
                                 return true
                             }
                         }
