@@ -98,7 +98,7 @@ pipeline {
                         }
                     }
 
-                    def result = downstreamBuild.result.toString()
+                    def result = buildInfo.result.toString()
 
                     echo "Downstream job Result: ${result}"
 
