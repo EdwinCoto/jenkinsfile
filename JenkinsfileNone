@@ -93,9 +93,45 @@ pipeline {
                                 return false
                             } else {
                                 echo "External job finished with: ${result}"
-                                sh("ls -lrta ; pwd")
+                                error("TODO OK")
                                 return true
                             }
+                        }
+                    }
+
+                    def result = downstreamBuild.result.toString()
+
+                    echo "Downstream job Result: ${result}"
+
+                    try {
+                        // Copy artifacts from the downstream job
+                        copyArtifacts(
+                            projectName: "downstream-job",
+                            selector: specific("${buildInfo.number}"),
+                            filter: '*',
+                            target: 'downstream-artifacts/',
+                        )
+
+                       /*
+                        publishHTML([
+                            allowMissing: true,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: "${env.WORKSPACE}/downstream-artifacts/automation-project/webdriverio/AWS-Scripts/allure-report/allure-report",
+                            reportFiles: 'index.html',
+                            reportName: 'Resultados Pruebas Automatizadas'
+                        ])
+                        */
+                    } catch (Exception e) {
+                        error("""
+                            Las pruebas automatizadas no generaron el reporte de resultados. \nFavor revisar los logs del job de pruebas automatizadas para más detalles."
+                            Mensaje de error: ${e}
+                            """ )
+
+                    if ( result != 'SUCCESS') {
+                        error("""
+                            Las pruebas automatizadas no cumplieron con los criterios de aceptación. \nLos resultados de las pruebas se encuentran en el enlace de 'Resultados Pruebas Automatizadas'.
+                            """)
                         }
                     }
                 }
