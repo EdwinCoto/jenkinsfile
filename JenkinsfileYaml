@@ -14,6 +14,10 @@ pipeline {
                          //def sonarqubeProjectKey = data.'sonarqubeProjectKey' ?: steps.error("You need to set sonarqubeProjectKey in modules.yaml")
                          echo "Modules: ${modules}"
                          
+                        echo "Type: ${modules.getClass()}"
+                        echo "Type name: ${modules.getClass().getName()}"
+                        echo "Simple name: ${modules.getClass().getSimpleName()}"
+
                          modules.each { moduleName, moduleData ->
                              echo "Module Name: ${moduleName}"
                              echo "  Main Project: ${moduleData.mainproject}"
