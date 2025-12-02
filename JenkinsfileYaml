@@ -13,6 +13,12 @@ pipeline {
                          //def iosPodSpecs         = data.'iosPodSpecs' ?: steps.error("You need to set iosPodSpecs in modules.yaml")
                          //def sonarqubeProjectKey = data.'sonarqubeProjectKey' ?: steps.error("You need to set sonarqubeProjectKey in modules.yaml")
                          echo "Modules: ${modules}"
+                         
+                         modules.each { moduleName, moduleData ->
+                             echo "Module Name: ${moduleName}"
+                             echo "  Main Project: ${moduleData.mainproject}"
+                             echo "  iOS Podspec: ${moduleData.iospodspec}"
+                             echo "  SonarQube Project Key: ${moduleData.sonarqubeprojectkey}"
 
                 }
             }
