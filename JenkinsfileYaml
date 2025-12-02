@@ -26,6 +26,8 @@ pipeline {
                             Sonar Project Key: ${moduleData.sonarqubeprojectkey}
                             """.stripIndent()
                         }
+                        def modulename = "Kmp-module1"
+                        def sonarKey= modules.modulename.'sonarqubeprojectkey'
 
                 }
             }
