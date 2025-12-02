@@ -19,6 +19,7 @@ pipeline {
                              echo "  Main Project: ${moduleData.mainproject}"
                              echo "  iOS Podspec: ${moduleData.iospodspec}"
                              echo "  SonarQube Project Key: ${moduleData.sonarqubeprojectkey}"
+                         }
 
                 }
             }
