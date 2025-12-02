@@ -5,7 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 script {
-                         String projectYaml   = "${WORKSPACE}/modules.yaml"
+                         String projectYaml   = "${WORKSPACE}/data.yaml"
                          def yamlContent      = readYaml file: projectYaml
 
                          def modules             = data.'globalModules' ?:  steps.error("You need to set globalModules in modules.yaml")
