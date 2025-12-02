@@ -20,10 +20,10 @@ pipeline {
 
                         modules.each { moduleName, moduleData ->
                             steps.echo """
-                            Module Name: ${moduleName}
-                            Main Project: ${moduleData.mainproject}
-                            iOS Podspec: ${moduleData.iospodspec}
-                            SonarQube Project Key: ${moduleData.sonarqubeprojectkey}
+                            Module Name:       ${moduleName}
+                            Main Project:      ${moduleData.mainproject}
+                            iOS Podspec:       ${moduleData.iospodspec}
+                            Sonar Project Key: ${moduleData.sonarqubeprojectkey}
                             """.stripIndent()
                         }
 
