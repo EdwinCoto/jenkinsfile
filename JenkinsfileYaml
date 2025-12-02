@@ -24,7 +24,7 @@ pipeline {
                             Main Project: ${moduleData.mainproject}
                             iOS Podspec: ${moduleData.iospodspec}
                             SonarQube Project Key: ${moduleData.sonarqubeprojectkey}
-                            """.stripIndent()
+                            """
                         }
 
                 }
