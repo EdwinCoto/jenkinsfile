@@ -28,7 +28,7 @@ pipeline {
                         }
                         def modulename = "Kmp-module1"
                         def sonarKey= modules.modulename.'sonarqubeprojectkey'
-                        echo "Sonar Key for ${modulename}: ${sonarKey
+                        echo "Sonar Key for ${modulename}: ${sonarKey}"
 
                 }
             }
