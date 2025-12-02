@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                         String projectYaml   = "${WORKSPACE}/modules.yaml"
+                         def yamlContent      = readYaml file: projectYaml
+
+                         def modules             = data.'globalModules' ?:  steps.error("You need to set globalModules in modules.yaml")
+                         //def mainProject         = data.'mainProject' ?: steps.error("You need to set mainProject in modules.yaml")
+                         //def iosPodSpecs         = data.'iosPodSpecs' ?: steps.error("You need to set iosPodSpecs in modules.yaml")
+                         //def sonarqubeProjectKey = data.'sonarqubeProjectKey' ?: steps.error("You need to set sonarqubeProjectKey in modules.yaml")
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+globalModules:
+  Kmp-module1:
+    mainproject: module1-shared
+    iospodspec: module1.podspec
+    sonarqubeprojectkey: sonar-module1-key
+  kmp-module2:
+    mainproject: module2-shared
+    iospodspec: module2.podspec
+    sonarqubeprojectkey: sonar-module2-key
+  kmp-module3:
+    mainproject: module3-shared
+    iospodspec: module3.podspec
+    sonarqubeprojectkey: sonar-module3-key
+  kmp-module4:
+    mainproject: module4-shared
+    iospodspec: module4.podspec
+    sonarqubeprojectkey: sonar-module4-key
