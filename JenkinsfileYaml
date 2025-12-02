@@ -18,12 +18,14 @@ pipeline {
                         echo "Type name: ${modules.getClass().getName()}"
                         echo "Simple name: ${modules.getClass().getSimpleName()}"
 
-                         modules.each { moduleName, moduleData ->
-                             echo "Module Name: ${moduleName}"
-                             echo "  Main Project: ${moduleData.mainproject}"
-                             echo "  iOS Podspec: ${moduleData.iospodspec}"
-                             echo "  SonarQube Project Key: ${moduleData.sonarqubeprojectkey}"
-                         }
+                        modules.each { moduleName, moduleData ->
+                            steps.echo """
+                            Module Name: ${moduleName}
+                            Main Project: ${moduleData.mainproject}
+                            iOS Podspec: ${moduleData.iospodspec}
+                            SonarQube Project Key: ${moduleData.sonarqubeprojectkey}
+                            """.stripIndent()
+                        }
 
                 }
             }
