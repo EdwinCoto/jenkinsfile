@@ -12,6 +12,7 @@ pipeline {
                          //def mainProject         = data.'mainProject' ?: steps.error("You need to set mainProject in modules.yaml")
                          //def iosPodSpecs         = data.'iosPodSpecs' ?: steps.error("You need to set iosPodSpecs in modules.yaml")
                          //def sonarqubeProjectKey = data.'sonarqubeProjectKey' ?: steps.error("You need to set sonarqubeProjectKey in modules.yaml")
+                         echo "Modules: ${modules}"
 
                 }
             }
